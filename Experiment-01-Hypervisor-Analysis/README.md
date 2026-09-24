@@ -1,120 +1,79 @@
----
+# CC-Experiment-01: Performance Analysis of Type-1 and Type-2 Hypervisors
 
-# Experimental Results
+## 1. Experiment Title
 
-## Type-1 Hypervisor — Proxmox VE
-
-The following screenshots document the Type-1 hypervisor experiment performed using Proxmox VE.
-
-### Proxmox VE Dashboard
-
-![Proxmox Dashboard](Screenshots/type1-proxmox/01-proxmox-dashboard.png)
-
-### Proxmox VM Configuration
-
-![Proxmox VM Configuration](Screenshots/type1-proxmox/02-proxmox-vm-configuration.png)
-
-### Proxmox VM Running
-
-![Proxmox VM Running](Screenshots/type1-proxmox/03-proxmox-vm-running.png)
-
-### Ubuntu Console
-
-![Proxmox Ubuntu Console](Screenshots/type1-proxmox/04-proxmox-ubuntu-console.png)
-
-### System Configuration
-
-![Proxmox System Configuration](Screenshots/type1-proxmox/05-proxmox-system-configuration.png)
-
-### Sysbench Result
-
-![Proxmox Sysbench Result](Screenshots/type1-proxmox/06-proxmox-sysbench-result.png)
-
-### Resource Monitoring
-
-![Proxmox Resource Monitoring 1](Screenshots/type1-proxmox/07-proxmox-resource-monitoring_1.png)
-
-![Proxmox Resource Monitoring 2](Screenshots/type1-proxmox/07-proxmox-resource-monitoring_2.png)
-
-![Proxmox Resource Monitoring 3](Screenshots/type1-proxmox/07-proxmox-resource-monitoring_3.png)
-
-![Proxmox Resource Monitoring 4](Screenshots/type1-proxmox/07-proxmox-resource-monitoring_4.png)
+**Performance Analysis of Type-1 and Type-2 Hypervisors**
 
 ---
 
-# Type-2 Hypervisor — VMware Workstation
+## 2. Aim
 
-The following screenshots document the Type-2 hypervisor experiment performed using VMware Workstation.
-
-### VMware VM Configuration
-
-![VMware VM Configuration](Screenshots/type2-vmware/01-vmware-vm-configuration.jpeg)
-
-### VMware VM Running
-
-![VMware VM Running](Screenshots/type2-vmware/02-vmware-vm-running.jpeg)
-
-### VMware System Configuration
-
-![VMware System Configuration](Screenshots/type2-vmware/03-vmware-system-configuration.jpeg)
-
-### VMware Sysbench Result
-
-![VMware Sysbench Result](Screenshots/type2-vmware/04-vmware-sysbench-result.jpeg)
+To create identically configured virtual machines on a Type-1 hypervisor and a Type-2 hypervisor and compare their CPU performance using the Sysbench CPU benchmark.
 
 ---
 
-# CPU Performance Comparison
+## 3. Objectives
 
-## CPU Throughput Comparison
+The objectives of this experiment are:
 
-The CPU throughput comparison between Proxmox VE and VMware Workstation is shown below.
-
-![CPU Throughput Comparison](../images/cpu-throughput-comparison.jpeg)
-
-### Recorded Throughput
-
-| Hypervisor | Events Per Second |
-|---|---:|
-| Proxmox VE | 1749.16 EPS |
-| VMware Workstation | 707.43 EPS |
-
----
-
-## CPU Latency Comparison
-
-The average CPU latency comparison between Proxmox VE and VMware Workstation is shown below.
-
-![CPU Latency Comparison](../images/cpu-latency-comparison.jpeg)
-
-### Recorded Latency
-
-| Hypervisor | Average Latency |
-|---|---:|
-| Proxmox VE | 0.57 ms |
-| VMware Workstation | 1.41 ms |
+- To understand virtualization and the role of hypervisors.
+- To understand the difference between Type-1 and Type-2 hypervisors.
+- To configure and run an Ubuntu virtual machine on Proxmox VE.
+- To configure and run an Ubuntu virtual machine on VMware Workstation.
+- To maintain identical VM resources for a fair comparison.
+- To perform CPU benchmarking using Sysbench.
+- To collect CPU performance metrics from both environments.
+- To compare execution time, total events, events per second, and latency.
+- To observe the effect of the virtualization environment on the measured CPU performance.
+- To document the complete experiment using screenshots and result files.
 
 ---
 
-# Performance Summary
+# 4. Introduction
 
-| Metric | Proxmox VE | VMware Workstation |
-|---|---:|---:|
-| CPU Throughput | 1749.16 EPS | 707.43 EPS |
-| Average Latency | 0.57 ms | 1.41 ms |
+## 4.1 Virtualization
 
----
+Virtualization is a technology that allows physical computing resources such as CPU, memory, storage, and networking to be abstracted and allocated to virtual machines.
 
-# Result
+A virtual machine behaves like an independent computer with its own operating system, virtual CPU, memory, disk, and network interface.
 
-The benchmark results obtained from the experiment are documented through the Proxmox VE and VMware Workstation screenshots and the CPU performance comparison graphs.
-
-The throughput and latency measurements provide the basis for comparing the CPU performance of the virtual machines under the two hypervisor environments.
+Multiple virtual machines can therefore run on the same physical hardware.
 
 ---
 
-# Conclusion
+## 4.2 Hypervisor
 
-The experiment demonstrates the practical process of configuring virtual machines under Type-1 and Type-2 hypervisors and evaluating their CPU performance using Sysbench.
+A **hypervisor**, also called a Virtual Machine Monitor (VMM), is the software layer responsible for creating and managing virtual machines.
 
-The complete configuration screenshots, benchmark outputs, throughput comparison, and latency comparison are included above for reference.
+It allocates physical hardware resources to virtual machines and provides isolation between different guest operating systems.
+
+Hypervisors are broadly classified into two types:
+
+1. Type-1 Hypervisor
+2. Type-2 Hypervisor
+
+---
+
+# 5. Types of Hypervisors
+
+## 5.1 Type-1 Hypervisor
+
+A Type-1 hypervisor runs directly on the physical hardware.
+
+There is no conventional host operating system between the physical hardware and the hypervisor.
+
+### Architecture
+
+```text
+┌───────────────────────────────┐
+│       Virtual Machines        │
+│     ┌───────┐   ┌───────┐     │
+│     │  VM 1 │   │  VM 2 │ ... │
+│     └───────┘   └───────┘     │
+├───────────────────────────────┤
+│       Type-1 Hypervisor       │
+│         Proxmox VE            │
+├───────────────────────────────┤
+│       Physical Hardware       │
+│       CPU / RAM / Disk        │
+└───────────────────────────────┘
