@@ -74,31 +74,6 @@ There is no conventional host operating system between the physical hardware and
 │       Type-1 Hypervisor       │
 │         Proxmox VE            │
 ├───────────────────────────────┤
-
-## 5.2 Type-2 Hypervisor
-
-A Type-2 hypervisor runs as an application on top of a host operating system.
-
-The host operating system manages the physical hardware, while the hypervisor provides the virtualization environment for running guest virtual machines.
-
-### Architecture
-
-┌───────────────────────────────┐
-│       Virtual Machines        │
-│     ┌───────┐   ┌───────┐     │
-│     │  VM 1 │   │  VM 2 │ ... │
-│     └───────┘   └───────┘     │
-├───────────────────────────────┤
-│       Type-2 Hypervisor       │
-│     VMware Workstation        │
-├───────────────────────────────┤
-│      Host Operating System    │
-├───────────────────────────────┤
 │       Physical Hardware       │
 │       CPU / RAM / Disk        │
 └───────────────────────────────┘
-│       Physical Hardware       │
-│       CPU / RAM / Disk        │
-└───────────────────────────────┘
-
-✕Merlin
